@@ -1,4 +1,4 @@
-package com.example.mobilechallengeuala.model
+package com.example.mobilechallengeuala.model.data
 
 object Constants {
     const val BASE_URL = "https://gist.githubusercontent.com/"

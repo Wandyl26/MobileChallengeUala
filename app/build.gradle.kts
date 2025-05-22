@@ -59,4 +59,8 @@ dependencies {
 
     
     implementation(libs.core.splashscreen)
+    implementation(libs.retrofit2)
+    implementation(libs.retrofit2.converter.gson)
+    implementation(libs.kotlinx.coroutines)
+
 }
