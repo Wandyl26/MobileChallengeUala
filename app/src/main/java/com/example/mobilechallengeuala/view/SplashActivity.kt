@@ -21,20 +21,20 @@ class MainActivity : ComponentActivity() {
     val citiesViewModel: CitiesViewModel by viewModels()
 
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         var continueMain = false
 
         citiesViewModel.isTerminate.observe(this) {
             continueMain = it
         }
-        citiesViewModel.updateCities()
+        citiesViewModel.getCitiesNet(this)
 
         installSplashScreen().apply {
             setKeepOnScreenCondition { !continueMain }
         }
+
+        citiesViewModel.isTerminate.removeObservers(this)
         enableEdgeToEdge()
         setContent {
             MobileChallengeUalaTheme {

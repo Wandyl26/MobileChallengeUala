@@ -2,7 +2,7 @@ package com.example.mobilechallengeuala.model.domain
 
 import com.example.mobilechallengeuala.model.data.network.CitiesService
 
-class GetCitiesUseCase {
+class GetCitiesNetworkDomain {
 
     private val servicio = CitiesService()
 
