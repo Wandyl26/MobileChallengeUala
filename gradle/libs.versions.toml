@@ -17,6 +17,9 @@ converter-gson="3.0.0"
 kotlinx-coroutines="1.8.0"
 room="2.6.1"
 
+maps-compose="4.4.1"
+play-services-maps="19.2.0"
+
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -42,6 +45,12 @@ kotlinx-coroutines={group= "org.jetbrains.kotlinx",name="kotlinx-coroutines-andr
 androidx-room={group= "androidx.room",name="room-ktx",version.ref="room"}
 androidx-room-compiler={group= "androidx.room",name="room-compiler",version.ref="room"}
 androidx-room-runtime={group= "androidx.room",name="room-runtime",version.ref="room"}
+
+
+maps-compose={group= "com.google.maps.android",name="maps-compose",version.ref="maps-compose"}
+play-services-maps={group= "com.google.android.gms",name="play-services-maps",version.ref="play-services-maps"}
+
+
 
 
 [plugins]

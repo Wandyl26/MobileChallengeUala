@@ -1,5 +1,6 @@
 package com.example.mobilechallengeuala.view
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -14,6 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.example.mobilechallengeuala.ui.theme.MobileChallengeUalaTheme
+import com.example.mobilechallengeuala.view.composable.Greeting
 import com.example.mobilechallengeuala.viewmodel.CitiesViewModel
 
 class MainActivity : ComponentActivity() {
@@ -47,24 +49,10 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
-    }
 
-}
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = name,
-        modifier = modifier
-    )
-}
-
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    MobileChallengeUalaTheme {
-        Greeting("Android")
+        val intent = Intent(this, MapsActivity::class.java)
+        startActivity(intent)
+        finish()
     }
 
 }
