@@ -9,15 +9,15 @@ class QueriesCitiesDataBaseDomain() {
     suspend fun insertCities(cityModel: List<CityModel>){
         CitiesDataBaseDomain.citiesDao.insertIfNotExist(convertListCitiesModel(cityModel))
     }
-    suspend fun getSearchCities(search:String): List<CityModel>{
+
+    suspend fun getSearchCities(search:String): List<CityDomain>{
         return convertListCitiesEntity(CitiesDataBaseDomain.citiesDao.getSearchCities(search))
     }
-    suspend fun getFavoriteCities(): List<CityModel>{
+    suspend fun getFavoriteCities(): List<CityDomain>{
         return convertListCitiesEntity(CitiesDataBaseDomain.citiesDao.getFavoriteCities())
     }
-    suspend fun updateCity(cityModel: CityModel, isFavorite: Boolean){
-        val cityEntity = convertCitiesModel(cityModel)
-        cityEntity.favorite = isFavorite
+    suspend fun updateCity(cityDomain: CityDomain){
+        val cityEntity = convertCitiesDomain(cityDomain)
         CitiesDataBaseDomain.citiesDao.updateCity(cityEntity)
     }
 }
@@ -25,10 +25,6 @@ class QueriesCitiesDataBaseDomain() {
 fun convertCitiesModel(cityModel: CityModel): CityEntity {
     val cityEntity = CityEntity(cityModel._id, cityModel.country, cityModel.name, cityModel.coord.lat, cityModel.coord.lon)
     return cityEntity
-}
-fun convertCitiesEntity(cityEntity: CityEntity): CityModel {
-    val cityModel=CityModel(cityEntity.country, cityEntity.name, cityEntity.id, CoordinatesModel(cityEntity.lat,cityEntity.lon))
-    return cityModel
 }
 
 fun convertListCitiesModel(cityModel: List<CityModel>): MutableList<CityEntity> {
@@ -38,10 +34,19 @@ fun convertListCitiesModel(cityModel: List<CityModel>): MutableList<CityEntity> 
     }
     return cityEntityList
 }
-fun convertListCitiesEntity(cityEntity: List<CityEntity>): MutableList<CityModel> {
-    val cityModelList = mutableListOf<CityModel>()
+
+fun convertCitiesEntity(cityEntity: CityEntity): CityDomain {
+    val cityDomain=CityDomain(cityEntity.id, cityEntity.country, cityEntity.name, cityEntity.lon, cityEntity.lat)
+    return cityDomain
+}
+fun convertListCitiesEntity(cityEntity: List<CityEntity>): MutableList<CityDomain> {
+    val cityDomainList = mutableListOf<CityDomain>()
     for (cityEntity in cityEntity){
-        cityModelList.add(convertCitiesEntity(cityEntity))
+        cityDomainList.add(convertCitiesEntity(cityEntity))
     }
-    return cityModelList
+    return cityDomainList
+}
+fun convertCitiesDomain(cityDomain: CityDomain): CityEntity {
+    val cityEntity = CityEntity(cityDomain.id, cityDomain.country, cityDomain.name, cityDomain.lat, cityDomain.lon)
+    return cityEntity
 }

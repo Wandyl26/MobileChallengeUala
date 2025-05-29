@@ -1,11 +1,15 @@
 package com.example.mobilechallengeuala.viewmodel
 
 import android.content.Context
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.mobilechallengeuala.model.data.CityModel
 import com.example.mobilechallengeuala.model.domain.CitiesDataBaseDomain
+import com.example.mobilechallengeuala.model.domain.CityDomain
 import com.example.mobilechallengeuala.model.domain.GetCitiesNetworkDomain
 import com.example.mobilechallengeuala.model.domain.QueriesCitiesDataBaseDomain
 import kotlinx.coroutines.Dispatchers
@@ -15,41 +19,57 @@ class CitiesViewModel() : ViewModel()  {
     companion object{
         private val queriesCitiesDataBaseDomain:QueriesCitiesDataBaseDomain=QueriesCitiesDataBaseDomain()
     }
+    val listCities :MutableLiveData<List<CityDomain>> = MutableLiveData<List<CityDomain>>()
+    var state by mutableStateOf(MutableLiveData<List<CityDomain>>())
 
-    val cityModel = MutableLiveData<List<CityModel>>()
     private var getCitiesNetworkDomain = GetCitiesNetworkDomain()
     var isTerminate = MutableLiveData<Boolean>()
 
     fun getCitiesNet(context: Context) {
+        isTerminate.postValue(false)
         viewModelScope.launch(Dispatchers.IO) {
             CitiesDataBaseDomain.getDatabase(context)
-            val result = getCitiesNetworkDomain()
-            isTerminate.postValue(false)
-            cityModel.postValue(result)
+            val result=getCitiesNetworkDomain()
             queriesCitiesDataBaseDomain.insertCities(result)
             if(result.isNotEmpty()){
                 isTerminate.postValue(true)
             }
         }
     }
-    fun getSearchCities(search:String){
+
+    fun searchCities(search:String){
+        if(search.isNotEmpty())
+            getSearchCities(search)
+        else
+            getFavoriteCities()
+
+    }
+
+    private fun getSearchCities(search:String){
         viewModelScope.launch(Dispatchers.IO) {
             val result = queriesCitiesDataBaseDomain.getSearchCities(search.lowercase())
-            cityModel.postValue(result)
+            listCities.postValue(result)
+           // state.value=(result)
         }
     }
-    fun getFavoriteCities(){
+    private fun getFavoriteCities(){
         viewModelScope.launch(Dispatchers.IO) {
             val result = queriesCitiesDataBaseDomain.getFavoriteCities()
-            cityModel.postValue(result)
+            //state.value=(result)
+           listCities.postValue(result)
         }
 
     }
-    fun setCity(city: CityModel, isFavorite: Boolean ){
+    private fun setCity(city: CityDomain, search: String ){
         viewModelScope.launch(Dispatchers.IO) {
-            isTerminate.postValue(false)
-            queriesCitiesDataBaseDomain.updateCity(city, isFavorite)
-            isTerminate.postValue(true)
+            var result:List<CityDomain>
+            city.favorite=!city.favorite
+            queriesCitiesDataBaseDomain.updateCity(city)
+            if(search.isNotEmpty())
+                 result = queriesCitiesDataBaseDomain.getSearchCities(search.lowercase())
+            else
+                 result = queriesCitiesDataBaseDomain.getFavoriteCities()
+            listCities.postValue(result)
         }
     }
 
