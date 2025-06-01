@@ -1,12 +1,11 @@
 package com.example.mobilechallengeuala.model.data.network
 
 import com.example.mobilechallengeuala.model.data.CityModel
+import javax.inject.Inject
 
-class CitiesService : RetrofitNetwork() {
-    lateinit var service: CitiesApiClient
+class CitiesService @Inject constructor(private val service: CitiesApiClient){
 
     suspend fun getCitiesApiClient(): List<CityModel> {
-        service = setupRetrofit()
         return service.getCities()
     }
 }

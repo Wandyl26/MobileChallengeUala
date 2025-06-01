@@ -1,24 +1,27 @@
 package com.example.mobilechallengeuala.model.domain
 
 import com.example.mobilechallengeuala.model.data.CityModel
-import com.example.mobilechallengeuala.model.data.CoordinatesModel
 import com.example.mobilechallengeuala.model.database.CityEntity
+import com.example.mobilechallengeuala.model.database.room.daos.CitiesDao
+import javax.inject.Inject
 
-class QueriesCitiesDataBaseDomain() {
+class QueriesCitiesDataBaseDomain @Inject constructor(
+    private val citiesDao: CitiesDao
+) {
 
     suspend fun insertCities(cityModel: List<CityModel>){
-        CitiesDataBaseDomain.citiesDao.insertIfNotExist(convertListCitiesModel(cityModel))
+        citiesDao.insertIfNotExist(convertListCitiesModel(cityModel))
     }
 
     suspend fun getSearchCities(search:String): List<CityDomain>{
-        return convertListCitiesEntity(CitiesDataBaseDomain.citiesDao.getSearchCities(search))
+        return convertListCitiesEntity(citiesDao.getSearchCities(search))
     }
     suspend fun getFavoriteCities(): List<CityDomain>{
-        return convertListCitiesEntity(CitiesDataBaseDomain.citiesDao.getFavoriteCities())
+        return convertListCitiesEntity(citiesDao.getFavoriteCities())
     }
     suspend fun updateCity(cityDomain: CityDomain){
         val cityEntity = convertCitiesDomain(cityDomain)
-        CitiesDataBaseDomain.citiesDao.updateCity(cityEntity)
+        citiesDao.updateCity(cityEntity)
     }
 }
 

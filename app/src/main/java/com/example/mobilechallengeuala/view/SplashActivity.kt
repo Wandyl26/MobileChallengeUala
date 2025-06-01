@@ -11,48 +11,41 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.example.mobilechallengeuala.ui.theme.MobileChallengeUalaTheme
 import com.example.mobilechallengeuala.view.composable.Greeting
-import com.example.mobilechallengeuala.viewmodel.CitiesViewModel
+import com.example.mobilechallengeuala.viewmodel.InitCitiesViewModel
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
-class MainActivity : ComponentActivity() {
+@AndroidEntryPoint
+class SplashActivity : ComponentActivity() {
 
-    val citiesViewModel: CitiesViewModel by viewModels()
-
+    @Inject lateinit var citiesViewModel: InitCitiesViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        var continueMain = false
 
-        citiesViewModel.isTerminate.observe(this) {
-            continueMain = it
-        }
-        citiesViewModel.getCitiesNet(this)
-
-        installSplashScreen().apply {
-            setKeepOnScreenCondition { !continueMain }
-        }
-
-        citiesViewModel.isTerminate.removeObservers(this)
         enableEdgeToEdge()
         setContent {
             MobileChallengeUalaTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Cargado",
-                        modifier = Modifier.padding(innerPadding)
-
-                    )
-                }
+                Greeting(citiesViewModel,
+                    name = "Cargando",
+                    modifier = Modifier.fillMaxSize(),
+                    onCharge = {
+                        if (it)
+                        {
+                            val intent = Intent(this, MapsActivity::class.java)
+                            startActivity(intent)
+                            finish()
+                        }
+                    }
+                )
             }
         }
-
-        val intent = Intent(this, MapsActivity::class.java)
-        startActivity(intent)
-        finish()
     }
 
 }
