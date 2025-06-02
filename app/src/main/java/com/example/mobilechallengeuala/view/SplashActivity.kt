@@ -25,8 +25,6 @@ class SplashActivity : ComponentActivity() {
         setContent {
             MobileChallengeUalaTheme {
                 Greeting(citiesViewModel,
-                    name = "Cargando",
-                    modifier = Modifier.fillMaxSize(),
                     onCharge = {
                         if (it)
                         {
