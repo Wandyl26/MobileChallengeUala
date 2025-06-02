@@ -1,10 +1,9 @@
-package com.example.mobilechallengeuala.model.domain
+package com.example.mobilechallengeuala.model.database.room
 
 import android.content.Context
 import androidx.room.Room
 import com.example.mobilechallengeuala.model.data.Constants.CITY_DATABASE
 import com.example.mobilechallengeuala.model.database.CityEntity
-import com.example.mobilechallengeuala.model.database.room.CitiesDataBase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -22,7 +21,6 @@ object CitiesDataBaseModule {
     fun provideCitiesDataBase(@ApplicationContext context: Context): CitiesDataBase = Room.databaseBuilder(
         context, CitiesDataBase::class.java, CITY_DATABASE)
         .allowMainThreadQueries()
-        .fallbackToDestructiveMigration()
         .build()
 
     @Provides
