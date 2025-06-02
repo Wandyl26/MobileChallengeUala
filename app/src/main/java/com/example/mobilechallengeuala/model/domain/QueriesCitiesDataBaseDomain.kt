@@ -26,7 +26,7 @@ class QueriesCitiesDataBaseDomain @Inject constructor(
 }
 
 fun convertCitiesModel(cityModel: CityModel): CityEntity {
-    val cityEntity = CityEntity(cityModel._id, cityModel.country, cityModel.name, cityModel.coord.lat, cityModel.coord.lon)
+    val cityEntity = CityEntity(cityModel._id, cityModel.country, cityModel.name, cityModel.coord.lon, cityModel.coord.lat)
     return cityEntity
 }
 
@@ -50,6 +50,6 @@ fun convertListCitiesEntity(cityEntity: List<CityEntity>): MutableList<CityDomai
     return cityDomainList
 }
 fun convertCitiesDomain(cityDomain: CityDomain): CityEntity {
-    val cityEntity = CityEntity(cityDomain.id, cityDomain.country, cityDomain.name, cityDomain.lat, cityDomain.lon, cityDomain.favorite)
+    val cityEntity = CityEntity(cityDomain.id, cityDomain.country, cityDomain.name, cityDomain.lon, cityDomain.lat, cityDomain.favorite)
     return cityEntity
 }

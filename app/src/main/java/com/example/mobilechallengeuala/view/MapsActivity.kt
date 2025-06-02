@@ -5,6 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import com.example.mobilechallengeuala.view.composable.CustomizableSearchBar
+import com.example.mobilechallengeuala.view.composable.SearchedCitiesNavigation
 import com.example.mobilechallengeuala.view.ui.theme.MobileChallengeUalaTheme
 import com.example.mobilechallengeuala.viewmodel.SearchCitiesViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -21,7 +22,7 @@ class MapsActivity @Inject constructor(): ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             MobileChallengeUalaTheme {
-                CustomizableSearchBar(searchCitiesViewModel,
+                SearchedCitiesNavigation(searchCitiesViewModel,
                     onSearch = {
                         searchText = it
                         searchCitiesViewModel.searchCities(it)

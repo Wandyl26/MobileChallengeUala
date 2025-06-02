@@ -74,4 +74,6 @@ dependencies {
     implementation(libs.hilt.android)
     ksp(libs.hilt.android.compiler)
 
+    implementation(libs.nav.version)
+    androidTestImplementation(libs.nav.testing)
 }

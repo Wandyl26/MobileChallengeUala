@@ -22,6 +22,8 @@ maps-compose="4.4.1"
 runtime-livedata="1.8.2"
 dagger-hilt="2.56.2"
 
+nav-version = "2.9.0"
+
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -53,6 +55,9 @@ maps-compose={group= "com.google.maps.android",name="maps-compose",version.ref="
 runtime-livedata={group= "androidx.compose.runtime",name="runtime-livedata",version.ref="runtime-livedata"}
 hilt-android={group= "com.google.dagger",name="hilt-android",version.ref="dagger-hilt"}
 hilt-android-compiler={group= "com.google.dagger",name="hilt-android-compiler",version.ref="dagger-hilt"}
+
+nav-version={group= "androidx.navigation",name="navigation-compose",version.ref="nav-version"}
+nav-testing={group= "androidx.navigation",name="navigation-testing",version.ref="nav-version"}
 
 
 [plugins]
