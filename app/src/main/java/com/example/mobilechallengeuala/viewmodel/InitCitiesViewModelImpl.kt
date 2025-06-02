@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.mobilechallengeuala.model.domain.CityDomain
 import com.example.mobilechallengeuala.model.domain.GetCitiesNetworkDomain
 import com.example.mobilechallengeuala.model.domain.QueriesCitiesDataBaseDomain
 import kotlinx.coroutines.Dispatchers
@@ -21,7 +20,7 @@ class InitCitiesViewModelImpl @Inject constructor(
     override val isTerminate : LiveData<Boolean>
                  get() = _isTerminate
 
-    override fun initCities() {
+    override  fun initCities() {
         viewModelScope.launch(Dispatchers.IO){
             val result=getCitiesNetworkDomain()
             queriesCitiesDataBaseDomain.insertCities(result)
