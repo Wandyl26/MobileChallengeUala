@@ -40,10 +40,9 @@ class SearchCitiesViewModelImpl @Inject constructor(
         }
 
     }
-    private fun updateCity(city: CityDomain, search: String ){
+    override fun updateCity(city: CityDomain, search: String ){
         viewModelScope.launch(Dispatchers.IO) {
             var result:List<CityDomain>
-            city.favorite=!city.favorite
             queriesCitiesDataBaseDomain.updateCity(city)
             if(search.isNotEmpty())
                 result = queriesCitiesDataBaseDomain.getSearchCities(search.lowercase())

@@ -8,4 +8,5 @@ interface SearchCitiesViewModel {
     val listCities : LiveData<List<CityDomain>>
 
     fun searchCities (search:String)
+    fun updateCity(city: CityDomain, search: String)
 }

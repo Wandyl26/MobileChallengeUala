@@ -39,7 +39,7 @@ fun convertListCitiesModel(cityModel: List<CityModel>): MutableList<CityEntity> 
 }
 
 fun convertCitiesEntity(cityEntity: CityEntity): CityDomain {
-    val cityDomain=CityDomain(cityEntity.id, cityEntity.country, cityEntity.name, cityEntity.lon, cityEntity.lat)
+    val cityDomain=CityDomain(cityEntity.id, cityEntity.country, cityEntity.name, cityEntity.lon, cityEntity.lat, cityEntity.favorite)
     return cityDomain
 }
 fun convertListCitiesEntity(cityEntity: List<CityEntity>): MutableList<CityDomain> {
@@ -50,6 +50,6 @@ fun convertListCitiesEntity(cityEntity: List<CityEntity>): MutableList<CityDomai
     return cityDomainList
 }
 fun convertCitiesDomain(cityDomain: CityDomain): CityEntity {
-    val cityEntity = CityEntity(cityDomain.id, cityDomain.country, cityDomain.name, cityDomain.lat, cityDomain.lon)
+    val cityEntity = CityEntity(cityDomain.id, cityDomain.country, cityDomain.name, cityDomain.lat, cityDomain.lon, cityDomain.favorite)
     return cityEntity
 }

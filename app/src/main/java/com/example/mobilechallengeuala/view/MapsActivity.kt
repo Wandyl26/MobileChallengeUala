@@ -14,15 +14,23 @@ import javax.inject.Inject
 class MapsActivity @Inject constructor(): ComponentActivity() {
 
     @Inject lateinit var searchCitiesViewModel: SearchCitiesViewModel
+    private var searchText = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
             MobileChallengeUalaTheme {
-                CustomizableSearchBar(searchCitiesViewModel, onSearch = {
-                    searchCitiesViewModel.searchCities(it)
-                })
+                CustomizableSearchBar(searchCitiesViewModel,
+                    onSearch = {
+                        searchText = it
+                        searchCitiesViewModel.searchCities(it)
+                               },
+                    onFavorite = {
+                        it.favorite=!it.favorite
+                        searchCitiesViewModel.updateCity(it, searchText)
+                                 }
+                )
 
             }
         }

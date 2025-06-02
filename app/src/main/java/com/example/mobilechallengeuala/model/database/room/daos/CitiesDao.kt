@@ -10,10 +10,10 @@ import com.example.mobilechallengeuala.model.database.CityEntity
 @Dao
 abstract class CitiesDao {
 
-    @Query("SELECT * FROM cities WHERE LOWER(name) LIKE :search || '%' ORDER BY name ASC LIMIT 10")
+    @Query("SELECT * FROM cities WHERE LOWER(name) LIKE :search || '%' ORDER BY name ASC LIMIT 20")
     abstract suspend fun getSearchCities(search: String): List<CityEntity>
 
-    @Query("SELECT * FROM cities WHERE favorite =true ORDER BY name ASC")
+    @Query("SELECT * FROM cities WHERE favorite =true ORDER BY name ASC LIMIT 20")
     abstract suspend fun getFavoriteCities(): List<CityEntity>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)

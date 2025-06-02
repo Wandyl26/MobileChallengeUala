@@ -6,5 +6,5 @@ data class CityDomain(
     val name: String,
     val lon: Double,
     val lat: Double,
-    var favorite: Boolean=false
+    var favorite: Boolean
 )
