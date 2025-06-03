@@ -4,8 +4,11 @@ import android.annotation.SuppressLint
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.safeContent
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
@@ -21,6 +24,7 @@ import androidx.compose.material3.SearchBar
 import androidx.compose.material3.SearchBarDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults.windowInsets
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -34,6 +38,7 @@ import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.traversalIndex
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.mobilechallengeuala.model.domain.CityDomain
 import com.example.mobilechallengeuala.ui.theme.ColorBlueFavorite
@@ -71,34 +76,40 @@ fun MapsScreen(navController: NavController
         cameraPositionState.position =
             CameraPosition.fromLatLngZoom(cityCoordinates, 15f)
     }
-
-    Scaffold(
-        topBar = {
-            TopAppBar(
-                title = { Text("Back") },
-                navigationIcon = {
-                    IconButton(onClick = { navController.popBackStack() }) {
-                        Icon(Icons.AutoMirrored.Filled.ArrowBack, "backIcon")
-                    }
-                }
-            )
-        },
-        content = {
-            GoogleMap(
-                cameraPositionState = cameraPositionState,
-                onMapClick ={
-                    cameraPositionState.position = CameraPosition.fromLatLngZoom(cityCoordinates, 18f)
-                }
-
-            ) {
-                Marker(
-                    state = marker,
-                    title = nameCity,
-                    snippet = snippet
+    Column(
+        modifier = Modifier
+            .fillMaxHeight(0.95f)) {
+        Scaffold(
+            topBar = {
+                TopAppBar(
+                    title = { Text("Back") },
+                    navigationIcon = {
+                        IconButton(onClick = { navController.popBackStack() }) {
+                            Icon(Icons.AutoMirrored.Filled.ArrowBack, "backIcon")
+                        }
+                    },
+                    //windowInsets = WindowInsets.safeContent
                 )
+
+            },
+            content = {
+                GoogleMap(
+                    cameraPositionState = cameraPositionState,
+                    onMapClick ={
+                        cameraPositionState.position = CameraPosition.fromLatLngZoom(cityCoordinates, 18f)
+                    }
+
+                ) {
+                    Marker(
+                        state = marker,
+                        title = nameCity,
+                        snippet = snippet
+                    )
+                }
             }
-        }
-    )
+        )
+    }
+
 }
 
 
@@ -122,8 +133,12 @@ fun CustomizableSearchBar(
         searchCitiesViewModel.searchCities(textSearch)
     }
 
-    Row(Modifier.fillMaxSize()){
-        Column{
+    Row{
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(bottom = 16.dp)
+        ){
 
             SearchBar(
                 modifier = Modifier
@@ -186,6 +201,7 @@ fun CustomizableSearchBar(
                     )
                 }
             }
+
         }
     }
 }
