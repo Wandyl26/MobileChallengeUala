@@ -74,10 +74,6 @@ class QueriesCitiesDataBaseDomainTest {
     @Test
     fun convertCitiesDomainToCitiesEntity(){
         //Arrange
-        /*
-        {"country":"CO","name":"Berlín","_id":3688889,"coord":{"lon":-75.547958,"lat":6.29238}},
-        */
-
         val cityDomain = CityDomain(3688256, "CO","Buga"    ,-76.297829, 3.90089,true)
         var cityEntity : CityEntity
 
