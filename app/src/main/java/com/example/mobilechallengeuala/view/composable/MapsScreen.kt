@@ -11,16 +11,12 @@ import com.example.mobilechallengeuala.model.domain.CityDomain
 import com.example.mobilechallengeuala.viewmodel.SearchCitiesViewModel
 
 
-var citySelected = CityDomain(0, "SG","Singapore",103.850067 ,1.28967, false)
-
-var searchTextScreens=""
 
 @Composable
 fun SearchedCitiesNavigation(
     searchCitiesViewModel: SearchCitiesViewModel,
     onSearch: (String) -> Unit,
-    onFavorite: (city: CityDomain) -> Unit,
-    modifier: Modifier = Modifier) {
+    onFavorite: (city: CityDomain) -> Unit) {
     val configuration = LocalConfiguration.current
 
     when (configuration.orientation) {
@@ -28,7 +24,7 @@ fun SearchedCitiesNavigation(
             val navController = rememberNavController()
             NavHost(navController = navController, startDestination = "search") {
                 composable("map") { MapsScreen(navController = navController) }
-                composable("search") { CustomizableSearchBar(searchCitiesViewModel, onSearch, onFavorite, modifier, navController)}
+                composable("search") { CustomizableSearchBar(searchCitiesViewModel, onSearch, onFavorite, navController)}
             }
         }
         Configuration.ORIENTATION_LANDSCAPE -> {

@@ -37,6 +37,8 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.mobilechallengeuala.model.domain.CityDomain
 import com.example.mobilechallengeuala.ui.theme.ColorBlueFavorite
+import com.example.mobilechallengeuala.view.MapsActivity.Companion.citySelected
+import com.example.mobilechallengeuala.view.MapsActivity.Companion.searchTextScreens
 import com.example.mobilechallengeuala.viewmodel.SearchCitiesViewModel
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
@@ -106,7 +108,6 @@ fun CustomizableSearchBar(
     searchCitiesViewModel: SearchCitiesViewModel,
     onSearch: (String) -> Unit,
     onFavorite: (city: CityDomain) -> Unit,
-    modifier: Modifier = Modifier,
     navController: NavController
 ) {
 

@@ -30,7 +30,7 @@ fun Greeting(
     val infiniteTransition = rememberInfiniteTransition(label = "infinite transition")
     val scale by infiniteTransition.animateFloat(
         initialValue = 1f,
-        targetValue = 8f,
+        targetValue = 5f,
         animationSpec = infiniteRepeatable(tween(1000), RepeatMode.Reverse),
         label = "scale"
     )
