@@ -17,7 +17,10 @@ android {
         versionCode = 1
         versionName = "1.0"
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = "com.example.mobilechallengeuala.CityDBTestRunner"
+        vectorDrawables {
+            useSupportLibrary = true
+        }
     }
 
     buildTypes {
@@ -51,6 +54,7 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
+    implementation(libs.androidx.runner)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -64,6 +68,7 @@ dependencies {
     implementation(libs.retrofit2.converter.gson)
     implementation(libs.kotlinx.coroutines)
 
+    androidTestImplementation(libs.androidx.room.testing)
     implementation(libs.androidx.room.runtime)
     implementation(libs.androidx.room)
     ksp(libs.androidx.room.compiler)
@@ -71,9 +76,16 @@ dependencies {
     implementation(libs.maps.compose)
 
     implementation(libs.runtime.livedata)
+
     implementation(libs.hilt.android)
     ksp(libs.hilt.android.compiler)
+    androidTestImplementation(libs.hilt.android.testing)
+    kspAndroidTest(libs.hilt.android.compiler)
+    testImplementation(libs.hilt.android.testing)
+    kspTest(libs.hilt.android.compiler)
 
     implementation(libs.nav.version)
     androidTestImplementation(libs.nav.testing)
+
+    androidTestImplementation(libs.core.testing)
 }

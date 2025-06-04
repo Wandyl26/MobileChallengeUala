@@ -9,6 +9,7 @@ lifecycleRuntimeKtx = "2.9.0"
 activityCompose = "1.10.1"
 composeBom = "2025.05.01"
 kotlin-ksp="2.0.21-1.0.27"
+runner = "1.6.2"
 
 core-splashscreen="1.0.1"
 
@@ -23,6 +24,8 @@ runtime-livedata="1.8.2"
 dagger-hilt="2.56.2"
 
 nav-version = "2.9.0"
+
+core-testing = "2.2.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -39,6 +42,7 @@ androidx-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-toolin
 androidx-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
 androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
 androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
+androidx-runner = { group = "androidx.test", name = "runner", version.ref = "runner" }
 
 core-splashscreen={group= "androidx.core",name="core-splashscreen",version.ref="core-splashscreen"}
 
@@ -49,15 +53,20 @@ kotlinx-coroutines={group= "org.jetbrains.kotlinx",name="kotlinx-coroutines-andr
 androidx-room={group= "androidx.room",name="room-ktx",version.ref="room"}
 androidx-room-compiler={group= "androidx.room",name="room-compiler",version.ref="room"}
 androidx-room-runtime={group= "androidx.room",name="room-runtime",version.ref="room"}
+androidx-room-testing={group= "androidx.room",name="room-testing",version.ref="room"}
 
 maps-compose={group= "com.google.maps.android",name="maps-compose",version.ref="maps-compose"}
 
 runtime-livedata={group= "androidx.compose.runtime",name="runtime-livedata",version.ref="runtime-livedata"}
+
 hilt-android={group= "com.google.dagger",name="hilt-android",version.ref="dagger-hilt"}
 hilt-android-compiler={group= "com.google.dagger",name="hilt-android-compiler",version.ref="dagger-hilt"}
+hilt-android-testing={group= "com.google.dagger",name="hilt-android-testing",version.ref="dagger-hilt"}
 
 nav-version={group= "androidx.navigation",name="navigation-compose",version.ref="nav-version"}
 nav-testing={group= "androidx.navigation",name="navigation-testing",version.ref="nav-version"}
+
+core-testing={group= "androidx.arch.core",name="core-testing",version.ref="core-testing"}
 
 
 [plugins]
