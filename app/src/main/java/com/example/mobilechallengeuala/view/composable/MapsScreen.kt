@@ -2,14 +2,12 @@ package com.example.mobilechallengeuala.view.composable
 
 import android.content.res.Configuration
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.mobilechallengeuala.model.domain.CityDomain
 import com.example.mobilechallengeuala.viewmodel.SearchCitiesViewModel
-
 
 
 @Composable
@@ -36,4 +34,3 @@ fun SearchedCitiesNavigation(
 
     }
 }
-

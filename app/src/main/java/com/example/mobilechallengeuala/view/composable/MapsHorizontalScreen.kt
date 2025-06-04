@@ -4,8 +4,6 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
@@ -33,6 +31,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.mobilechallengeuala.model.domain.CityDomain
 import com.example.mobilechallengeuala.ui.theme.ColorBlueFavorite
 import com.example.mobilechallengeuala.view.MapsActivity.Companion.citySelected
@@ -59,25 +58,30 @@ fun HorizontalScreen(
         mutableStateOf(searchTextScreens)
     }
     var nameCity by rememberSaveable {
-        mutableStateOf("${citySelected.name}, ${citySelected.country}")
+        mutableStateOf("Name: ${citySelected.name}, Country: ${citySelected.country}")
     }
 
     var cityCoordinates by rememberSaveable { mutableStateOf(LatLng(citySelected.lat, citySelected.lon)) }
-    var cameraPositionState = rememberCameraPositionState {
+    val cameraPositionState = rememberCameraPositionState {
         position = CameraPosition.fromLatLngZoom(cityCoordinates, 15f)
     }
-    var marker = rememberMarkerState(position = cityCoordinates )
-    var snippet by rememberSaveable { mutableStateOf("Latitud: ${citySelected.lat}, Longitud: ${citySelected.lon}") }
+    val marker = rememberMarkerState(position = cityCoordinates )
+    var snippet by rememberSaveable { mutableStateOf("Lat: ${citySelected.lat}, Lon: ${citySelected.lon}") }
+
+    fun reloadVar(){
+        cityCoordinates=LatLng(citySelected.lat, citySelected.lon)
+        marker.position = cityCoordinates
+        nameCity="Name: ${citySelected.name}, Country: ${citySelected.country}"
+        snippet="Lat: ${citySelected.lat}, Lon: ${citySelected.lon}"
+        cameraPositionState.position =
+            CameraPosition.fromLatLngZoom(cityCoordinates, 15f)
+
+    }
 
     LaunchedEffect(key1 =Unit) {
         textSearch=searchTextScreens
         searchCitiesViewModel.searchCities(textSearch)
-        cityCoordinates=LatLng(citySelected.lat, citySelected.lon)
-        marker.position = cityCoordinates
-        nameCity="${citySelected.name}, ${citySelected.country}"
-        snippet="Latitud: ${citySelected.lat}, Longitud: ${citySelected.lon}"
-        cameraPositionState.position =
-            CameraPosition.fromLatLngZoom(cityCoordinates, 15f)
+        reloadVar()
     }
 
     Row(Modifier
@@ -110,19 +114,21 @@ fun HorizontalScreen(
                 ) {}
             LazyColumn{
                 items(count = listCities.value?.size ?: 0) { index ->
-                    val resultText = listCities.value?.get(index)
+                    val resultItem = listCities.value?.get(index)
                     ListItem(
-                        headlineContent = { Text((resultText?.name ) +", ${resultText?.country}") },
+                        headlineContent = { Text((resultItem?.name ) +", ${resultItem?.country}") },
+                        supportingContent = { Text(("Lat: ${resultItem?.lat}, Lon: ${resultItem?.lon}") ,
+                            fontSize = 13.sp)},
                         colors = ListItemDefaults.colors(containerColor = Color.Transparent),
                         trailingContent ={
                             IconButton(onClick = {
-                            resultText?.let {
+                            resultItem?.let {
                                 onFavorite(it) } }) {
                                 Icon(
                                     rememberVectorPainter(image = Icons.Filled.Star),
                                     contentDescription = "Favorite",
                                     tint = {
-                                        if (resultText?.favorite == true)
+                                        if (resultItem?.favorite == true)
                                             ColorBlueFavorite
                                         else
                                             Color.Gray
@@ -131,16 +137,10 @@ fun HorizontalScreen(
                         },
                         modifier = Modifier
                             .clickable {
-                                resultText?.let {
+                                resultItem?.let {
                                     citySelected = it
                                 }
-                                cityCoordinates=LatLng(citySelected.lat, citySelected.lon)
-                                marker.position = cityCoordinates
-                                nameCity="${citySelected.name}, ${citySelected.country}"
-                                snippet="Latitud: ${citySelected.lat}, Longitud: ${citySelected.lon}"
-                                cameraPositionState.position =
-                                    CameraPosition.fromLatLngZoom(cityCoordinates, 15f)
-
+                                reloadVar()
                             }
                             .padding(horizontal = 4.dp, vertical = 4.dp)
                             .fillParentMaxWidth(0.5f)
