@@ -166,6 +166,7 @@ fun HorizontalScreen(
                     title = nameCity,
                     snippet = snippet
                 )
+                marker.showInfoWindow()
             }
         }
 

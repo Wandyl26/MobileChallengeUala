@@ -33,6 +33,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.traversalIndex
 import androidx.compose.ui.unit.dp
@@ -41,6 +42,7 @@ import androidx.navigation.NavController
 import com.example.mobilechallengeuala.model.domain.CityDomain
 import com.example.mobilechallengeuala.ui.theme.ColorBlueFavorite
 import com.example.mobilechallengeuala.view.MapsActivity.Companion.citySelected
+import com.example.mobilechallengeuala.view.MapsActivity.Companion.navControllerMaps
 import com.example.mobilechallengeuala.view.MapsActivity.Companion.searchTextScreens
 import com.example.mobilechallengeuala.viewmodel.SearchCitiesViewModel
 import com.google.android.gms.maps.model.CameraPosition
@@ -103,6 +105,7 @@ fun MapsScreen(navController: NavController
                         title = nameCity,
                         snippet = snippet
                     )
+                    marker.showInfoWindow()
                 }
             }
         )
@@ -125,6 +128,7 @@ fun CustomizableSearchBar(
     var textSearch by rememberSaveable {
         mutableStateOf(searchTextScreens)
     }
+    navControllerMaps=navController
 
     LaunchedEffect(key1 =Unit) {
         textSearch=searchTextScreens
@@ -177,7 +181,8 @@ fun CustomizableSearchBar(
                         trailingContent ={
                             IconButton(onClick = {
                                 resultItem?.let {
-                                    onFavorite(it) } }) {
+                                    onFavorite(it)
+                                } }) {
                                 Icon(
                                     rememberVectorPainter(image = Icons.Filled.Star),
                                     contentDescription = "Favorite",

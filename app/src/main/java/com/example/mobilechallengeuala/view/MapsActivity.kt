@@ -4,6 +4,8 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.navigation.NavController
+import androidx.navigation.NavHostController
 import com.example.mobilechallengeuala.model.domain.CityDomain
 import com.example.mobilechallengeuala.view.composable.SearchedCitiesNavigation
 import com.example.mobilechallengeuala.view.ui.theme.MobileChallengeUalaTheme
@@ -17,6 +19,8 @@ class MapsActivity @Inject constructor(): ComponentActivity() {
         var citySelected = CityDomain(0, "SG","Singapore",103.850067 ,1.28967, false)
 
         var searchTextScreens=""
+
+        lateinit var navControllerMaps: NavController
     }
 
     @Inject lateinit var searchCitiesViewModel: SearchCitiesViewModel

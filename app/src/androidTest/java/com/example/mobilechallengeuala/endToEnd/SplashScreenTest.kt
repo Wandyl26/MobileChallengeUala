@@ -35,16 +35,18 @@ class SplashScreenTest {
 
     }
 
+    @After
+    fun finish() {
+        composeTestRule.activityRule.scenario.close()
+    }
+
     @Test
     fun splashScreenTest() {
-        //runOnUiThread or runOnIdle
-
         composeTestRule.activity.setContent {
             Greeting(
                 initCitiesViewModelImpl,
                 onCharge ={
                     assert(it)
-                    composeTestRule.activity.finish()
                 }
             )
         }
