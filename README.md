@@ -16,3 +16,7 @@ Se utilizo dagger hilt para la inyección de dependencias.
 
 La  pantalla de información no la vi necesaria ya que cuando se lanza la pantalla con la ubicación marcara,
 se muestra la información que se pedía en la pantalla de información en el Marker que se utiliza en google maps.
+
+
+[Mobile Challenge - v0.7.pdf](Mobile%20Challenge%20-%20v0.7.pdf)
+
