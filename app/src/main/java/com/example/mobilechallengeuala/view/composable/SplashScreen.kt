@@ -29,16 +29,17 @@ fun Greeting(
     val isTerminate = citiesViewModel.isTerminate.observeAsState()
     val infiniteTransition = rememberInfiniteTransition(label = "infinite transition")
     val scale by infiniteTransition.animateFloat(
-        initialValue = 1f,
-        targetValue = 5f,
+        initialValue = 5f,
+        targetValue = 1f,
         animationSpec = infiniteRepeatable(tween(1000), RepeatMode.Reverse),
         label = "scale"
     )
     LaunchedEffect(key1 =Unit) {
        citiesViewModel.initCities()
     }
-
-    onCharge(isTerminate.value?:false)
+    if(isTerminate.value == true) {
+        onCharge(isTerminate.value ?: false)
+    }
     Box(modifier =  Modifier.fillMaxSize())
     {
         Image(
