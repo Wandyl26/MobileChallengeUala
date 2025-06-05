@@ -15,7 +15,6 @@ import javax.inject.Singleton
  class  CitiesModules {
 
 
-    @Singleton
     @Provides
     fun provideInitCitiesViewModel(
         initCitiesViewModelImpl:InitCitiesViewModelImpl
@@ -24,7 +23,6 @@ import javax.inject.Singleton
     }
 
 
-    @Singleton
     @Provides
     fun provideSearchCitiesViewModel(
         searchCitiesViewModelImpl: SearchCitiesViewModelImpl

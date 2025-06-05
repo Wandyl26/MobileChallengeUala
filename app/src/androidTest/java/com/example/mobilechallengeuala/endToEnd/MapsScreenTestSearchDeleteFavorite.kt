@@ -20,6 +20,7 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import javax.inject.Inject
+import kotlin.system.exitProcess
 
 @HiltAndroidTest
 class MapsScreenTestSearchDeleteFavorite {
@@ -56,10 +57,11 @@ class MapsScreenTestSearchDeleteFavorite {
 
     }
 
-
     @After
     fun finish() {
+        composeTestRule.activity.finish()
         composeTestRule.activityRule.scenario.close()
+        Thread.sleep(5000)
     }
 
 
@@ -74,29 +76,35 @@ class MapsScreenTestSearchDeleteFavorite {
 
         }
         composeTestRule.waitForIdle()
+        Thread.sleep(2000)
 
         composeTestRule.onNodeWithText("Search")
             .performTextInput("Singapore")
 
         composeTestRule.waitForIdle()
+        Thread.sleep(2000)
 
         composeTestRule.onNodeWithContentDescription("Favorite")
             .performClick()
 
         composeTestRule.waitForIdle()
+        Thread.sleep(2000)
 
         composeTestRule.onNodeWithText("Singapore")
             .performTextClearance()
 
         composeTestRule.waitForIdle()
+        Thread.sleep(2000)
 
         composeTestRule.onNodeWithContentDescription("Favorite")
             .performClick()
 
         composeTestRule.waitForIdle()
+        Thread.sleep(2000)
 
         composeTestRule.onNodeWithContentDescription("Favorite")
             .assertIsNotDisplayed()
+
     }
 
 

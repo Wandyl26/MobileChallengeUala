@@ -15,6 +15,7 @@ import com.example.mobilechallengeuala.view.composable.Greeting
 import com.example.mobilechallengeuala.viewmodel.InitCitiesViewModel
 import org.junit.After
 import javax.inject.Inject
+import kotlin.system.exitProcess
 
 @HiltAndroidTest
 class SplashScreenTest {
@@ -37,9 +38,10 @@ class SplashScreenTest {
 
     @After
     fun finish() {
+        composeTestRule.activity.finish()
         composeTestRule.activityRule.scenario.close()
+        Thread.sleep(5000)
     }
-
     @Test
     fun splashScreenTest() {
         composeTestRule.activity.setContent {

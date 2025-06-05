@@ -19,6 +19,7 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import javax.inject.Inject
+import kotlin.system.exitProcess
 
 @HiltAndroidTest
 class MapsScreenTestNotFavorite {
@@ -68,31 +69,37 @@ class MapsScreenTestNotFavorite {
         }
 
         composeTestRule.waitForIdle()
+        Thread.sleep(2000)
 
         composeTestRule.onNodeWithContentDescription("Favorite")
             .assertIsNotDisplayed()
 
         composeTestRule.waitForIdle()
+        Thread.sleep(2000)
 
         composeTestRule.onNodeWithText("Search")
             .performTextInput("Singapore")
 
         composeTestRule.waitForIdle()
+        Thread.sleep(2000)
 
         composeTestRule.onNodeWithText("Singapore")
             .performTextClearance()
 
         composeTestRule.waitForIdle()
+        Thread.sleep(2000)
 
         composeTestRule.onNodeWithContentDescription("Favorite")
             .assertIsNotDisplayed()
-
 
     }
 
     @After
     fun finish() {
+        composeTestRule.activity.finish()
         composeTestRule.activityRule.scenario.close()
+        Thread.sleep(5000)
     }
+
 
 }

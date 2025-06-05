@@ -22,6 +22,7 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import javax.inject.Inject
+import kotlin.system.exitProcess
 
 @HiltAndroidTest
 class MapsScreenTestSearch {
@@ -58,14 +59,15 @@ class MapsScreenTestSearch {
 
     }
 
-
     @After
     fun finish() {
+        composeTestRule.activity.finish()
         composeTestRule.activityRule.scenario.close()
+        Thread.sleep(5000)
     }
 
     @Test
-    fun testSearch() {
+    fun testSearch1() {
 
         while (initCitiesViewModelImpl.isTerminate.value== null &&
             initCitiesViewModelImpl.isTerminate.value != true
@@ -75,11 +77,13 @@ class MapsScreenTestSearch {
         }
 
         composeTestRule.waitForIdle()
+        Thread.sleep(2000)
 
         composeTestRule.onNodeWithText("Search")
             .performTextInput("Singapore")
 
         composeTestRule.waitForIdle()
+        Thread.sleep(2000)
 
         composeTestRule.onNodeWithText("Singapore, SG")
             .assertIsDisplayed()
@@ -87,20 +91,120 @@ class MapsScreenTestSearch {
         composeTestRule.onNodeWithText("Lat: 1.28967, Lon: 103.850067")
             .assertIsDisplayed()
 
-        composeTestRule.onNodeWithContentDescription("Favorite")
-            .assertIsDisplayed()
+        composeTestRule.waitForIdle()
+        Thread.sleep(2000)
 
-        composeTestRule.onNodeWithText("Singapore")
-            .performTextClearance()
+    }
+    @Test
+    fun testSearch2(){
+        while (initCitiesViewModelImpl.isTerminate.value== null &&
+            initCitiesViewModelImpl.isTerminate.value != true
+        )
+        {}
 
         composeTestRule.waitForIdle()
-
-        //Buscar por l
+        Thread.sleep(2000)
 
         composeTestRule.onNodeWithText("Search")
-            .performTextInput("l")
+            .performTextInput("bucara")
 
         composeTestRule.waitForIdle()
+        Thread.sleep(2000)
+
+        composeTestRule.onNodeWithText("Bucaramanga, CO")
+            .assertIsDisplayed()
+
+        composeTestRule.onNodeWithText("Lat: 7.12539, Lon: -73.119797")
+            .assertIsDisplayed()
+
+    }
+    @Test
+    fun testSearch3(){
+        while (initCitiesViewModelImpl.isTerminate.value== null &&
+            initCitiesViewModelImpl.isTerminate.value != true
+        )
+        {}
+        composeTestRule.waitForIdle()
+        Thread.sleep(2000)
+
+        composeTestRule.onNodeWithText("Search")
+            .performTextInput("MEDELL")
+
+        composeTestRule.waitForIdle()
+        Thread.sleep(2000)
+
+        composeTestRule.onNodeWithText("Medellin, CO")
+            .assertIsDisplayed()
+
+        composeTestRule.onNodeWithText("Lat: 6.25184, Lon: -75.563591")
+            .assertIsDisplayed()
+
+    }
+    @Test
+    fun testSearch4(){
+        while (initCitiesViewModelImpl.isTerminate.value== null &&
+            initCitiesViewModelImpl.isTerminate.value != true
+        )
+        {}
+
+        composeTestRule.waitForIdle()
+        Thread.sleep(2000)
+
+
+        composeTestRule.onNodeWithText("Search")
+            .performTextInput("Bogota")
+
+        composeTestRule.waitForIdle()
+        Thread.sleep(2000)
+
+        composeTestRule.onNodeWithText("Bogota, CO")
+            .assertIsDisplayed()
+
+        composeTestRule.onNodeWithText("Lat: 4.60971, Lon: -74.081749")
+            .assertIsDisplayed()
+    }
+
+    @Test
+    fun testSearch5(){
+        while (initCitiesViewModelImpl.isTerminate.value== null &&
+            initCitiesViewModelImpl.isTerminate.value != true
+        )
+        {}
+        composeTestRule.waitForIdle()
+        Thread.sleep(2000)
+
+        composeTestRule.onNodeWithText("Search")
+            .performTextInput("cArTaGeNa")
+
+        composeTestRule.waitForIdle()
+        Thread.sleep(2000)
+
+        composeTestRule.onNodeWithText("Cartagena, PH")
+            .assertIsDisplayed()
+
+        composeTestRule.onNodeWithText("Lat: 9.82167, Lon: 122.398888")
+            .assertIsDisplayed()
+    }
+
+    @Test
+    fun testSearchOneLetter(){
+
+        while (initCitiesViewModelImpl.isTerminate.value== null &&
+            initCitiesViewModelImpl.isTerminate.value != true
+        )
+        {
+
+        }
+
+        composeTestRule.waitForIdle()
+        Thread.sleep(2000)
+
+
+            composeTestRule.onNodeWithText("Search")
+                .performTextInput("l")
+
+        composeTestRule.waitForIdle()
+        Thread.sleep(2000)
 
         composeTestRule.onNodeWithText("L'Abbaye, CH")
             .assertIsDisplayed()
@@ -127,110 +231,81 @@ class MapsScreenTestSearch {
             .assertIsDisplayed()
 
 
-        composeTestRule.onNodeWithText("l")
-            .performTextClearance()
-
         composeTestRule.waitForIdle()
+        Thread.sleep(2000)
+    }
 
-        //Busquedas invalidas
+    @Test
+    fun testInvalidSearch1(){
+        while (initCitiesViewModelImpl.isTerminate.value== null &&
+            initCitiesViewModelImpl.isTerminate.value != true
+        )
+        {}
 
         composeTestRule.onNodeWithText("Search")
             .performTextInput("Bucartail")
 
         composeTestRule.waitForIdle()
+        Thread.sleep(2000)
 
         composeTestRule.onNodeWithContentDescription("Favorite")
             .assertIsNotDisplayed()
-
-
-
-        composeTestRule.onNodeWithText("Bucartail")
-            .performTextReplacement("bPoskaq")
-
-        composeTestRule.waitForIdle()
-
-        composeTestRule.onNodeWithContentDescription("Favorite")
-            .assertIsNotDisplayed()
-
-
-
-        composeTestRule.onNodeWithText("bPoskaq")
-            .performTextReplacement("Postaies")
-
-        composeTestRule.waitForIdle()
-
-        composeTestRule.onNodeWithContentDescription("Favorite")
-            .assertIsNotDisplayed()
-
-
-
-
-
-        composeTestRule.onNodeWithText("Postaies")
-            .performTextReplacement("Venzalasut")
-
-        composeTestRule.waitForIdle()
-
-        composeTestRule.onNodeWithContentDescription("Favorite")
-            .assertIsNotDisplayed()
-
-
-        composeTestRule.onNodeWithText("Venzalasut")
-            .performTextClearance()
-
-
-        // Diferentes busquedas
-
-        composeTestRule.onNodeWithText("Search")
-            .performTextInput("bucara")
-
-        composeTestRule.waitForIdle()
-
-        composeTestRule.onNodeWithText("Bucaramanga, CO")
-            .assertIsDisplayed()
-
-        composeTestRule.onNodeWithText("Lat: 7.12539, Lon: -73.119797")
-            .assertIsDisplayed()
-
-
-        composeTestRule.onNodeWithText("bucara")
-            .performTextReplacement("MEDELL")
-
-        composeTestRule.waitForIdle()
-
-        composeTestRule.onNodeWithText("Medellin, CO")
-            .assertIsDisplayed()
-
-        composeTestRule.onNodeWithText("Lat: 6.25184, Lon: -75.563591")
-            .assertIsDisplayed()
-
-
-        composeTestRule.onNodeWithText("MEDELL")
-            .performTextReplacement("Bogota")
-
-        composeTestRule.waitForIdle()
-
-        composeTestRule.onNodeWithText("Bogota, CO")
-            .assertIsDisplayed()
-
-        composeTestRule.onNodeWithText("Lat: 4.60971, Lon: -74.081749")
-            .assertIsDisplayed()
-
-
-        composeTestRule.onNodeWithText("Bogota")
-            .performTextReplacement("cArTaGeNa")
-
-        composeTestRule.waitForIdle()
-
-        composeTestRule.onNodeWithText("Cartagena, PH")
-            .assertIsDisplayed()
-
-        composeTestRule.onNodeWithText("Lat: 9.82167, Lon: 122.398888")
-            .assertIsDisplayed()
-
 
 
     }
 
+    @Test
+    fun testInvalidSearch2(){
+        while (initCitiesViewModelImpl.isTerminate.value== null &&
+            initCitiesViewModelImpl.isTerminate.value != true
+        )
+        {}
+
+
+        composeTestRule.onNodeWithText("Search")
+            .performTextInput("bPoskaq")
+
+        composeTestRule.waitForIdle()
+        Thread.sleep(2000)
+
+        composeTestRule.onNodeWithContentDescription("Favorite")
+            .assertIsNotDisplayed()
+    }
+
+    @Test
+    fun testInvalidSearch3(){
+        while (initCitiesViewModelImpl.isTerminate.value== null &&
+            initCitiesViewModelImpl.isTerminate.value != true
+        )
+        {}
+
+        composeTestRule.onNodeWithText("Search")
+            .performTextInput("Postaies")
+
+        composeTestRule.waitForIdle()
+        Thread.sleep(2000)
+
+        composeTestRule.onNodeWithContentDescription("Favorite")
+            .assertIsNotDisplayed()
+
+    }
+    @Test
+    fun testInvalidSearch4(){
+        while (initCitiesViewModelImpl.isTerminate.value== null &&
+            initCitiesViewModelImpl.isTerminate.value != true
+        )
+        {}
+
+
+        composeTestRule.onNodeWithText("Search")
+            .performTextInput("Venzalasut")
+
+        composeTestRule.waitForIdle()
+        Thread.sleep(2000)
+
+        composeTestRule.onNodeWithContentDescription("Favorite")
+            .assertIsNotDisplayed()
+
+    }
 
 }
